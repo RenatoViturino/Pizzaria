@@ -4,10 +4,6 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-/**
- * Entidade JPA: CompraEstoque
- * PK: idCompra (Long) — conforme diagrama de classes
- */
 @Entity
 @Table(name = "compras_estoque")
 public class CompraEstoqueJpaEntity {
@@ -32,16 +28,12 @@ public class CompraEstoqueJpaEntity {
 
     public Long getIdCompra() { return idCompra; }
     public void setIdCompra(Long idCompra) { this.idCompra = idCompra; }
-
     public String getFornecedor() { return fornecedor; }
     public void setFornecedor(String fornecedor) { this.fornecedor = fornecedor; }
-
     public LocalDate getDataCompra() { return dataCompra; }
     public void setDataCompra(LocalDate dataCompra) { this.dataCompra = dataCompra; }
-
     public BigDecimal getValorTotal() { return valorTotal; }
     public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }
-
     public EstoqueJpaEntity getEstoque() { return estoque; }
     public void setEstoque(EstoqueJpaEntity estoque) { this.estoque = estoque; }
 }

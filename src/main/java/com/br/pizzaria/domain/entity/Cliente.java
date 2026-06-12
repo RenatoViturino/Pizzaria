@@ -3,10 +3,6 @@ package com.br.pizzaria.domain.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Entidade de domínio: Cliente
- * PK: cpfCliente (String) — conforme diagrama de classes
- */
 public class Cliente {
 
     private String cpfCliente;
@@ -32,25 +28,18 @@ public class Cliente {
 
     public String getCpfCliente() { return cpfCliente; }
     public void setCpfCliente(String cpfCliente) { this.cpfCliente = cpfCliente; }
-
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
-
     public String getTelefone() { return telefone; }
     public void setTelefone(String telefone) { this.telefone = telefone; }
-
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
-
     public String getEndereco() { return endereco; }
     public void setEndereco(String endereco) { this.endereco = endereco; }
-
     public Integer getPontuacao() { return pontuacao; }
     public void setPontuacao(Integer pontuacao) { this.pontuacao = pontuacao; }
-
     public Perfil getPerfil() { return perfil; }
     public void setPerfil(Perfil perfil) { this.perfil = perfil; }
-
     public List<Pedido> getPedidos() { return pedidos; }
     public void setPedidos(List<Pedido> pedidos) { this.pedidos = pedidos; }
 }

@@ -4,9 +4,6 @@ import com.br.pizzaria.infrastructure.persistence.entity.PedidoJpaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
-/**
- * Spring Data JPA Repository para Pedido (PK: Long idPedido)
- */
 public interface PedidoJpaRepository extends JpaRepository<PedidoJpaEntity, Long> {
     List<PedidoJpaEntity> findByClienteCpfCliente(String cpfCliente);
 }

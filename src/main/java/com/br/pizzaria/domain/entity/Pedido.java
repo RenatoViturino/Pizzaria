@@ -5,10 +5,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Entidade de domínio: Pedido
- * PK: idPedido (Long) — conforme diagrama de classes
- */
 public class Pedido {
 
     private Long idPedido;
@@ -30,22 +26,16 @@ public class Pedido {
 
     public Long getIdPedido() { return idPedido; }
     public void setIdPedido(Long idPedido) { this.idPedido = idPedido; }
-
     public LocalDateTime getDataHora() { return dataHora; }
     public void setDataHora(LocalDateTime dataHora) { this.dataHora = dataHora; }
-
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
-
     public BigDecimal getValorTotal() { return valorTotal; }
     public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }
-
     public String getCpfCliente() { return cpfCliente; }
     public void setCpfCliente(String cpfCliente) { this.cpfCliente = cpfCliente; }
-
     public List<ItemPedido> getItens() { return itens; }
     public void setItens(List<ItemPedido> itens) { this.itens = itens; }
-
     public Entrega getEntrega() { return entrega; }
     public void setEntrega(Entrega entrega) { this.entrega = entrega; }
 }

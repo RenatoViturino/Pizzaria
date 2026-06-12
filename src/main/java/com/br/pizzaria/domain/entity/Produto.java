@@ -2,10 +2,6 @@ package com.br.pizzaria.domain.entity;
 
 import java.math.BigDecimal;
 
-/**
- * Entidade de domínio: Produto (cardápio)
- * PK: idProduto (Long) — conforme diagrama de classes
- */
 public class Produto {
 
     private Long idProduto;
@@ -25,16 +21,12 @@ public class Produto {
 
     public Long getIdProduto() { return idProduto; }
     public void setIdProduto(Long idProduto) { this.idProduto = idProduto; }
-
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
-
     public String getTipo() { return tipo; }
     public void setTipo(String tipo) { this.tipo = tipo; }
-
     public BigDecimal getPreco() { return preco; }
     public void setPreco(BigDecimal preco) { this.preco = preco; }
-
     public Integer getEstoqueAtual() { return estoqueAtual; }
     public void setEstoqueAtual(Integer estoqueAtual) { this.estoqueAtual = estoqueAtual; }
 }

@@ -6,10 +6,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Entidade JPA: Pedido
- * PK: idPedido (Long) — conforme diagrama de classes
- */
 @Entity
 @Table(name = "pedidos")
 public class PedidoJpaEntity {
@@ -40,22 +36,16 @@ public class PedidoJpaEntity {
 
     public Long getIdPedido() { return idPedido; }
     public void setIdPedido(Long idPedido) { this.idPedido = idPedido; }
-
     public LocalDateTime getDataHora() { return dataHora; }
     public void setDataHora(LocalDateTime dataHora) { this.dataHora = dataHora; }
-
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
-
     public BigDecimal getValorTotal() { return valorTotal; }
     public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }
-
     public ClienteJpaEntity getCliente() { return cliente; }
     public void setCliente(ClienteJpaEntity cliente) { this.cliente = cliente; }
-
     public List<ItemPedidoJpaEntity> getItens() { return itens; }
     public void setItens(List<ItemPedidoJpaEntity> itens) { this.itens = itens; }
-
     public EntregaJpaEntity getEntrega() { return entrega; }
     public void setEntrega(EntregaJpaEntity entrega) { this.entrega = entrega; }
 }

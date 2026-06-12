@@ -4,10 +4,6 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-/**
- * Entidade JPA: PagamentoFuncionario
- * PK: idPagamento (Long) — conforme diagrama de classes
- */
 @Entity
 @Table(name = "pagamentos_funcionarios")
 public class PagamentoFuncionarioJpaEntity {
@@ -29,13 +25,10 @@ public class PagamentoFuncionarioJpaEntity {
 
     public Long getIdPagamento() { return idPagamento; }
     public void setIdPagamento(Long idPagamento) { this.idPagamento = idPagamento; }
-
     public BigDecimal getValor() { return valor; }
     public void setValor(BigDecimal valor) { this.valor = valor; }
-
     public LocalDate getDataPagamento() { return dataPagamento; }
     public void setDataPagamento(LocalDate dataPagamento) { this.dataPagamento = dataPagamento; }
-
     public FuncionarioJpaEntity getFuncionario() { return funcionario; }
     public void setFuncionario(FuncionarioJpaEntity funcionario) { this.funcionario = funcionario; }
 }

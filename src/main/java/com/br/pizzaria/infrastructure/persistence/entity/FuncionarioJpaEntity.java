@@ -6,10 +6,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Entidade JPA: Funcionario
- * PK: cpfFuncionario (String) — conforme diagrama de classes
- */
 @Entity
 @Table(name = "funcionarios")
 public class FuncionarioJpaEntity {
@@ -35,19 +31,14 @@ public class FuncionarioJpaEntity {
 
     public String getCpfFuncionario() { return cpfFuncionario; }
     public void setCpfFuncionario(String cpfFuncionario) { this.cpfFuncionario = cpfFuncionario; }
-
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
-
     public String getCargo() { return cargo; }
     public void setCargo(String cargo) { this.cargo = cargo; }
-
     public BigDecimal getSalario() { return salario; }
     public void setSalario(BigDecimal salario) { this.salario = salario; }
-
     public LocalDate getDataContratacao() { return dataContratacao; }
     public void setDataContratacao(LocalDate dataContratacao) { this.dataContratacao = dataContratacao; }
-
     public List<PagamentoFuncionarioJpaEntity> getPagamentos() { return pagamentos; }
     public void setPagamentos(List<PagamentoFuncionarioJpaEntity> pagamentos) { this.pagamentos = pagamentos; }
 }

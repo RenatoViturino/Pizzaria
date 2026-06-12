@@ -3,10 +3,6 @@ package com.br.pizzaria.infrastructure.persistence.entity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-/**
- * Entidade JPA: SMS
- * PK: idSms (Long) — conforme diagrama de classes
- */
 @Entity
 @Table(name = "sms")
 public class SmsJpaEntity {
@@ -27,13 +23,10 @@ public class SmsJpaEntity {
 
     public Long getIdSms() { return idSms; }
     public void setIdSms(Long idSms) { this.idSms = idSms; }
-
     public String getNumero() { return numero; }
     public void setNumero(String numero) { this.numero = numero; }
-
     public String getMensagem() { return mensagem; }
     public void setMensagem(String mensagem) { this.mensagem = mensagem; }
-
     public LocalDateTime getDataEnvio() { return dataEnvio; }
     public void setDataEnvio(LocalDateTime dataEnvio) { this.dataEnvio = dataEnvio; }
 }

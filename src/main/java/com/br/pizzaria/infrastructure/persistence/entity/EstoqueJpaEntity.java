@@ -3,10 +3,6 @@ package com.br.pizzaria.infrastructure.persistence.entity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-/**
- * Entidade JPA: Estoque (movimentação)
- * PK: idMovimento (Long) — conforme diagrama de classes
- */
 @Entity
 @Table(name = "estoque")
 public class EstoqueJpaEntity {
@@ -31,16 +27,12 @@ public class EstoqueJpaEntity {
 
     public Long getIdMovimento() { return idMovimento; }
     public void setIdMovimento(Long idMovimento) { this.idMovimento = idMovimento; }
-
     public String getTipoMovimento() { return tipoMovimento; }
     public void setTipoMovimento(String tipoMovimento) { this.tipoMovimento = tipoMovimento; }
-
     public Integer getQuantidade() { return quantidade; }
     public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
-
     public LocalDateTime getDataHora() { return dataHora; }
     public void setDataHora(LocalDateTime dataHora) { this.dataHora = dataHora; }
-
     public ProdutoJpaEntity getProduto() { return produto; }
     public void setProduto(ProdutoJpaEntity produto) { this.produto = produto; }
 }
