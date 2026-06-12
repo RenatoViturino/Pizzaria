@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "pedidos")
+@Table(name = "pedido")
 public class PedidoJpaEntity {
 
     @Id
@@ -18,21 +18,19 @@ public class PedidoJpaEntity {
     @Column(name = "data_hora", nullable = false)
     private LocalDateTime dataHora;
 
-    @Column(nullable = false, length = 30)
+    @Column(name = "status", nullable = false, length = 30)
     private String status;
 
     @Column(name = "valor_total", nullable = false, precision = 10, scale = 2)
     private BigDecimal valorTotal;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cpf_cliente", nullable = false)
-    private ClienteJpaEntity cliente;
+    @Column(name = "cpf_cliente", nullable = false, length = 11)
+    private String cpfCliente;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ItemPedidoJpaEntity> itens = new ArrayList<>();
 
-    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
-    private EntregaJpaEntity entrega;
+    public PedidoJpaEntity() {}
 
     public Long getIdPedido() { return idPedido; }
     public void setIdPedido(Long idPedido) { this.idPedido = idPedido; }
@@ -42,10 +40,8 @@ public class PedidoJpaEntity {
     public void setStatus(String status) { this.status = status; }
     public BigDecimal getValorTotal() { return valorTotal; }
     public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }
-    public ClienteJpaEntity getCliente() { return cliente; }
-    public void setCliente(ClienteJpaEntity cliente) { this.cliente = cliente; }
+    public String getCpfCliente() { return cpfCliente; }
+    public void setCpfCliente(String cpfCliente) { this.cpfCliente = cpfCliente; }
     public List<ItemPedidoJpaEntity> getItens() { return itens; }
     public void setItens(List<ItemPedidoJpaEntity> itens) { this.itens = itens; }
-    public EntregaJpaEntity getEntrega() { return entrega; }
-    public void setEntrega(EntregaJpaEntity entrega) { this.entrega = entrega; }
 }

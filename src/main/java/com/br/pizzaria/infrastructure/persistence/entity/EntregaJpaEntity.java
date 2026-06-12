@@ -3,7 +3,7 @@ package com.br.pizzaria.infrastructure.persistence.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "entregas")
+@Table(name = "entrega")
 public class EntregaJpaEntity {
 
     @Id
@@ -11,7 +11,7 @@ public class EntregaJpaEntity {
     @Column(name = "id_entrega")
     private Long idEntrega;
 
-    @Column(name = "status_entrega", nullable = false, length = 30)
+    @Column(name = "status_entrega", nullable = false, length = 20)
     private String statusEntrega;
 
     @Column(name = "avaliacao_cliente")
@@ -20,13 +20,13 @@ public class EntregaJpaEntity {
     @Column(name = "avaliacao_entregador")
     private Integer avaliacaoEntregador;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_pedido", nullable = false)
-    private PedidoJpaEntity pedido;
+    @Column(name = "cpf_funcionario", nullable = false, length = 11)
+    private String cpfFuncionario;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cpf_funcionario", nullable = false)
-    private FuncionarioJpaEntity funcionario;
+    @Column(name = "id_pedido", nullable = false)
+    private Long idPedido;
+
+    public EntregaJpaEntity() {}
 
     public Long getIdEntrega() { return idEntrega; }
     public void setIdEntrega(Long idEntrega) { this.idEntrega = idEntrega; }
@@ -36,8 +36,8 @@ public class EntregaJpaEntity {
     public void setAvaliacaoCliente(Integer avaliacaoCliente) { this.avaliacaoCliente = avaliacaoCliente; }
     public Integer getAvaliacaoEntregador() { return avaliacaoEntregador; }
     public void setAvaliacaoEntregador(Integer avaliacaoEntregador) { this.avaliacaoEntregador = avaliacaoEntregador; }
-    public PedidoJpaEntity getPedido() { return pedido; }
-    public void setPedido(PedidoJpaEntity pedido) { this.pedido = pedido; }
-    public FuncionarioJpaEntity getFuncionario() { return funcionario; }
-    public void setFuncionario(FuncionarioJpaEntity funcionario) { this.funcionario = funcionario; }
+    public String getCpfFuncionario() { return cpfFuncionario; }
+    public void setCpfFuncionario(String cpfFuncionario) { this.cpfFuncionario = cpfFuncionario; }
+    public Long getIdPedido() { return idPedido; }
+    public void setIdPedido(Long idPedido) { this.idPedido = idPedido; }
 }

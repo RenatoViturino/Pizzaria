@@ -3,31 +3,28 @@ package com.br.pizzaria.infrastructure.persistence.entity;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "funcionarios")
+@Table(name = "funcionario")
 public class FuncionarioJpaEntity {
 
     @Id
-    @Column(name = "cpf_funcionario", length = 11, nullable = false)
+    @Column(name = "cpf_funcionario", length = 11)
     private String cpfFuncionario;
 
-    @Column(nullable = false)
+    @Column(name = "nome", nullable = false)
     private String nome;
 
-    @Column(nullable = false, length = 30)
+    @Column(name = "cargo", nullable = false, length = 50)
     private String cargo;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(name = "salario", nullable = false, precision = 10, scale = 2)
     private BigDecimal salario;
 
     @Column(name = "data_contratacao", nullable = false)
     private LocalDate dataContratacao;
 
-    @OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
-    private List<PagamentoFuncionarioJpaEntity> pagamentos = new ArrayList<>();
+    public FuncionarioJpaEntity() {}
 
     public String getCpfFuncionario() { return cpfFuncionario; }
     public void setCpfFuncionario(String cpfFuncionario) { this.cpfFuncionario = cpfFuncionario; }
@@ -39,6 +36,4 @@ public class FuncionarioJpaEntity {
     public void setSalario(BigDecimal salario) { this.salario = salario; }
     public LocalDate getDataContratacao() { return dataContratacao; }
     public void setDataContratacao(LocalDate dataContratacao) { this.dataContratacao = dataContratacao; }
-    public List<PagamentoFuncionarioJpaEntity> getPagamentos() { return pagamentos; }
-    public void setPagamentos(List<PagamentoFuncionarioJpaEntity> pagamentos) { this.pagamentos = pagamentos; }
 }

@@ -1,16 +1,19 @@
 package com.br.pizzaria.infrastructure.messaging.producer;
 
 import com.br.pizzaria.domain.event.PedidoCriadoEvent;
+import com.br.pizzaria.domain.event.PedidoStatusAlteradoEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.event.EventListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
-/**
- * Produtor Kafka: publica eventos de domínio no tópico de pedidos.
- */
 @Component
 public class PedidoEventProducer {
 
-    private static final String TOPIC_PEDIDO_CRIADO = "pizzaria.pedido.criado";
+    private static final Logger log = LoggerFactory.getLogger(PedidoEventProducer.class);
+    private static final String TOPIC_CRIADO = "pizzaria.pedido.criado";
+    private static final String TOPIC_STATUS = "pizzaria.pedido.status";
 
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
@@ -18,7 +21,16 @@ public class PedidoEventProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void publicarPedidoCriado(PedidoCriadoEvent evento) {
-        kafkaTemplate.send(TOPIC_PEDIDO_CRIADO, evento.pedidoId().toString(), evento);
+    @EventListener
+    public void onPedidoCriado(PedidoCriadoEvent event) {
+        log.info("[KAFKA] Publicando PedidoCriadoEvent: pedido={}", event.idPedido());
+        kafkaTemplate.send(TOPIC_CRIADO, event.idPedido().toString(), event);
+    }
+
+    @EventListener
+    public void onPedidoStatusAlterado(PedidoStatusAlteradoEvent event) {
+        log.info("[KAFKA] Publicando PedidoStatusAlteradoEvent: pedido={} status={}",
+                event.idPedido(), event.novoStatus());
+        kafkaTemplate.send(TOPIC_STATUS, event.idPedido().toString(), event);
     }
 }

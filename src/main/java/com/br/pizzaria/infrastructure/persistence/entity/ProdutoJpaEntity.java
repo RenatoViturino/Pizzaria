@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "produtos")
+@Table(name = "produto")
 public class ProdutoJpaEntity {
 
     @Id
@@ -12,17 +12,19 @@ public class ProdutoJpaEntity {
     @Column(name = "id_produto")
     private Long idProduto;
 
-    @Column(nullable = false)
+    @Column(name = "nome", nullable = false)
     private String nome;
 
-    @Column(nullable = false, length = 30)
+    @Column(name = "tipo", nullable = false, length = 30)
     private String tipo;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(name = "preco", nullable = false, precision = 10, scale = 2)
     private BigDecimal preco;
 
     @Column(name = "estoque_atual", nullable = false)
     private Integer estoqueAtual;
+
+    public ProdutoJpaEntity() {}
 
     public Long getIdProduto() { return idProduto; }
     public void setIdProduto(Long idProduto) { this.idProduto = idProduto; }

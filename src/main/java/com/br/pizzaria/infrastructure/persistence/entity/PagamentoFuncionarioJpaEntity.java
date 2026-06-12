@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "pagamentos_funcionarios")
+@Table(name = "pagamento_funcionario")
 public class PagamentoFuncionarioJpaEntity {
 
     @Id
@@ -13,15 +13,16 @@ public class PagamentoFuncionarioJpaEntity {
     @Column(name = "id_pagamento")
     private Long idPagamento;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(name = "valor", nullable = false, precision = 10, scale = 2)
     private BigDecimal valor;
 
     @Column(name = "data_pagamento", nullable = false)
     private LocalDate dataPagamento;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cpf_funcionario", nullable = false)
-    private FuncionarioJpaEntity funcionario;
+    @Column(name = "cpf_funcionario", nullable = false, length = 11)
+    private String cpfFuncionario;
+
+    public PagamentoFuncionarioJpaEntity() {}
 
     public Long getIdPagamento() { return idPagamento; }
     public void setIdPagamento(Long idPagamento) { this.idPagamento = idPagamento; }
@@ -29,6 +30,6 @@ public class PagamentoFuncionarioJpaEntity {
     public void setValor(BigDecimal valor) { this.valor = valor; }
     public LocalDate getDataPagamento() { return dataPagamento; }
     public void setDataPagamento(LocalDate dataPagamento) { this.dataPagamento = dataPagamento; }
-    public FuncionarioJpaEntity getFuncionario() { return funcionario; }
-    public void setFuncionario(FuncionarioJpaEntity funcionario) { this.funcionario = funcionario; }
+    public String getCpfFuncionario() { return cpfFuncionario; }
+    public void setCpfFuncionario(String cpfFuncionario) { this.cpfFuncionario = cpfFuncionario; }
 }

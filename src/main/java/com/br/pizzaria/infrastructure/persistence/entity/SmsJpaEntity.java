@@ -12,14 +12,16 @@ public class SmsJpaEntity {
     @Column(name = "id_sms")
     private Long idSms;
 
-    @Column(nullable = false, length = 20)
+    @Column(name = "numero", nullable = false, length = 11)
     private String numero;
 
-    @Column(nullable = false, length = 500)
+    @Column(name = "mensagem", nullable = false, length = 500)
     private String mensagem;
 
     @Column(name = "data_envio", nullable = false)
     private LocalDateTime dataEnvio;
+
+    public SmsJpaEntity() {}
 
     public Long getIdSms() { return idSms; }
     public void setIdSms(Long idSms) { this.idSms = idSms; }

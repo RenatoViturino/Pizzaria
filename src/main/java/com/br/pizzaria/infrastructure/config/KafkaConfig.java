@@ -4,10 +4,8 @@ import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
+import org.springframework.kafka.support.converter.JsonMessageConverter;
 
-/**
- * Configuração dos tópicos Kafka.
- */
 @Configuration
 public class KafkaConfig {
 
@@ -25,5 +23,10 @@ public class KafkaConfig {
                 .partitions(3)
                 .replicas(1)
                 .build();
+    }
+
+    @Bean
+    public JsonMessageConverter jsonMessageConverter() {
+        return new JsonMessageConverter();
     }
 }
