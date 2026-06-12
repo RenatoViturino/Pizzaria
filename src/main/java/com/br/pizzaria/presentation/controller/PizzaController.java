@@ -1,7 +1,5 @@
 package com.br.pizzaria.presentation.controller;
 
-import com.br.pizzaria.application.dto.request.CriarPizzaRequest;
-import com.br.pizzaria.application.dto.response.PizzaResponse;
 import com.br.pizzaria.application.usecase.pizza.CriarPizzaUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
