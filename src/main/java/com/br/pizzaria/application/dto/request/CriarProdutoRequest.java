@@ -1,14 +1,14 @@
 package com.br.pizzaria.application.dto.request;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+
 import java.math.BigDecimal;
 
-/**
- * DTO de entrada: criar Produto (substitui CriarPizzaRequest)
- */
 public record CriarProdutoRequest(
         @NotBlank String nome,
         @NotBlank String tipo,
-        @NotNull @DecimalMin("0.01") BigDecimal preco,
-        @NotNull @Min(0) Integer estoqueAtual
+        @NotNull @PositiveOrZero BigDecimal preco,
+        @NotNull @PositiveOrZero Integer estoqueAtual
 ) {}

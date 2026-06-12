@@ -8,10 +8,8 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public record CriarFuncionarioRequest(
+public record RegistrarPagamentoFuncionarioRequest(
         @NotBlank @Size(min = 11, max = 11) String cpfFuncionario,
-        @NotBlank String nome,
-        @NotBlank String cargo,
-        @NotNull @Positive BigDecimal salario,
-        @NotNull LocalDate dataContratacao
+        @NotNull @Positive BigDecimal valor,
+        @NotNull LocalDate dataPagamento
 ) {}
