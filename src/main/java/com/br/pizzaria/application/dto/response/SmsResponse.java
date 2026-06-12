@@ -3,8 +3,7 @@ package com.br.pizzaria.application.dto.response;
 import java.time.LocalDateTime;
 
 /**
- * DTO de resposta: SMS
- * PK: idSms (Long) — conforme diagrama
+ * DTO de resposta: Sms
  */
 public record SmsResponse(
         Long idSms,

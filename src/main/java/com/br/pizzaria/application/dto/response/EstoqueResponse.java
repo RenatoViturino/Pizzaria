@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 /**
  * DTO de resposta: Estoque (movimentação)
- * PK: idMovimento (Long) — conforme diagrama
  */
 public record EstoqueResponse(
         Long idMovimento,

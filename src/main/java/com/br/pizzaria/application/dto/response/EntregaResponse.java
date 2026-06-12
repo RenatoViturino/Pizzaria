@@ -2,7 +2,6 @@ package com.br.pizzaria.application.dto.response;
 
 /**
  * DTO de resposta: Entrega
- * PK: idEntrega (Long) — conforme diagrama
  */
 public record EntregaResponse(
         Long idEntrega,
@@ -10,5 +9,6 @@ public record EntregaResponse(
         Integer avaliacaoCliente,
         Integer avaliacaoEntregador,
         String cpfFuncionario,
-        String nomeFuncionario
+        String nomeFuncionario,
+        Long idPedido
 ) {}
