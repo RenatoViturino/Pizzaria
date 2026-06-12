@@ -1,13 +1,13 @@
 package com.br.pizzaria.application.dto.request;
 
+import jakarta.validation.constraints.*;
 import java.util.List;
-import java.util.UUID;
 
 /**
- * DTO de entrada: Criar Pedido.
+ * DTO de entrada: criar Pedido
+ * cpfCliente referencia a PK natural do cliente
  */
 public record CriarPedidoRequest(
-    UUID clienteId,
-    List<ItemPedidoRequest> itens,
-    String enderecoEntrega
+        @NotBlank @Size(min = 11, max = 11) String cpfCliente,
+        @NotEmpty List<ItemPedidoRequest> itens
 ) {}

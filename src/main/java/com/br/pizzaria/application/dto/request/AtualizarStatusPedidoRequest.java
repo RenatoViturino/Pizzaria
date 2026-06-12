@@ -1,12 +1,12 @@
 package com.br.pizzaria.application.dto.request;
 
-import com.br.pizzaria.domain.valueobject.StatusPedido;
-import java.util.UUID;
+import jakarta.validation.constraints.*;
 
 /**
- * DTO de entrada: Atualizar Status do Pedido.
+ * DTO de entrada: atualizar status do Pedido
+ * idPedido é Long — conforme diagrama
  */
 public record AtualizarStatusPedidoRequest(
-    UUID pedidoId,
-    StatusPedido novoStatus
+        @NotNull Long idPedido,
+        @NotBlank String novoStatus
 ) {}

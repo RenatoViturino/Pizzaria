@@ -1,13 +1,17 @@
 package com.br.pizzaria.application.dto.response;
 
-import java.util.UUID;
+import java.util.List;
 
 /**
- * DTO de saída: Cliente.
+ * DTO de resposta: Cliente
+ * PK: cpfCliente (String) — conforme diagrama
  */
 public record ClienteResponse(
-    UUID id,
-    String nome,
-    String email,
-    String telefone
+        String cpfCliente,
+        String nome,
+        String telefone,
+        String email,
+        String endereco,
+        Integer pontuacao,
+        String tipoPerfil
 ) {}

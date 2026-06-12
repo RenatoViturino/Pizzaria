@@ -1,11 +1,12 @@
 package com.br.pizzaria.application.dto.request;
 
-import java.util.UUID;
+import jakarta.validation.constraints.*;
 
 /**
- * DTO de entrada: Item do Pedido.
+ * DTO de entrada: item de pedido
+ * idProduto referencia PK Long do produto
  */
 public record ItemPedidoRequest(
-    UUID pizzaId,
-    int quantidade
+        @NotNull Long idProduto,
+        @NotNull @Min(1) Integer quantidade
 ) {}

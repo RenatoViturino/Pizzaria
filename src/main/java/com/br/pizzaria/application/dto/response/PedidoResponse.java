@@ -1,15 +1,18 @@
 package com.br.pizzaria.application.dto.response;
 
-import com.br.pizzaria.domain.valueobject.StatusPedido;
-import java.time.Instant;
-import java.util.UUID;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
- * DTO de saída: Pedido.
+ * DTO de resposta: Pedido
+ * PK: idPedido (Long) — conforme diagrama
  */
 public record PedidoResponse(
-    UUID id,
-    UUID clienteId,
-    StatusPedido status,
-    Instant criadoEm
+        Long idPedido,
+        LocalDateTime dataHora,
+        String status,
+        BigDecimal valorTotal,
+        String cpfCliente,
+        List<ItemPedidoResponse> itens
 ) {}
