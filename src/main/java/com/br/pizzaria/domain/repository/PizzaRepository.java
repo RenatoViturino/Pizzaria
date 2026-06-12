@@ -1,16 +1,16 @@
 package com.br.pizzaria.domain.repository;
 
-import com.br.pizzaria.domain.entity.Pizza;
+import com.br.pizzaria.domain.entity.Produto;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
- * Porta de saída: repositório de Pizzas.
+ * Porta de saída: repositório de Produto/Pizza (PK: Long idProduto)
+ * Renomeado para alinhar com o diagrama — entidade é Produto.
  */
 public interface PizzaRepository {
-    Pizza salvar(Pizza pizza);
-    Optional<Pizza> buscarPorId(UUID id);
-    List<Pizza> listarTodas();
-    void deletar(UUID id);
+    Produto salvar(Produto produto);
+    Optional<Produto> buscarPorId(Long id);
+    List<Produto> listarTodos();
+    void deletar(Long id);
 }
