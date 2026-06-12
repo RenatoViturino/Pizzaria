@@ -9,9 +9,14 @@ public class CompraEstoque {
     private String fornecedor;
     private LocalDate dataCompra;
     private BigDecimal valorTotal;
-    private Estoque estoque;
 
     public CompraEstoque() {}
+
+    public CompraEstoque(String fornecedor, LocalDate dataCompra, BigDecimal valorTotal) {
+        this.fornecedor = fornecedor;
+        this.dataCompra = dataCompra;
+        this.valorTotal = valorTotal;
+    }
 
     public Long getIdCompra() { return idCompra; }
     public void setIdCompra(Long idCompra) { this.idCompra = idCompra; }
@@ -21,6 +26,4 @@ public class CompraEstoque {
     public void setDataCompra(LocalDate dataCompra) { this.dataCompra = dataCompra; }
     public BigDecimal getValorTotal() { return valorTotal; }
     public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }
-    public Estoque getEstoque() { return estoque; }
-    public void setEstoque(Estoque estoque) { this.estoque = estoque; }
 }

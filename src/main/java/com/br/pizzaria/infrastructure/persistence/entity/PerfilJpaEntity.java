@@ -3,18 +3,20 @@ package com.br.pizzaria.infrastructure.persistence.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "perfis")
+@Table(name = "perfil")
 public class PerfilJpaEntity {
 
     @Id
-    @Column(name = "tipo_perfil", length = 30)
+    @Column(name = "tipo_perfil", length = 20)
     private String tipoPerfil;
 
-    @Column
+    @Column(name = "regras", nullable = false, length = 500)
     private String regras;
 
-    @Column
+    @Column(name = "desconto", nullable = false)
     private Integer desconto;
+
+    public PerfilJpaEntity() {}
 
     public String getTipoPerfil() { return tipoPerfil; }
     public void setTipoPerfil(String tipoPerfil) { this.tipoPerfil = tipoPerfil; }

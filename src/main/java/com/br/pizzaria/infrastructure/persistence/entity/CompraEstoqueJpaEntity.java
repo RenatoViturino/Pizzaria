@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "compras_estoque")
+@Table(name = "compra_estoque")
 public class CompraEstoqueJpaEntity {
 
     @Id
@@ -13,7 +13,7 @@ public class CompraEstoqueJpaEntity {
     @Column(name = "id_compra")
     private Long idCompra;
 
-    @Column(nullable = false)
+    @Column(name = "fornecedor", nullable = false)
     private String fornecedor;
 
     @Column(name = "data_compra", nullable = false)
@@ -22,9 +22,7 @@ public class CompraEstoqueJpaEntity {
     @Column(name = "valor_total", nullable = false, precision = 10, scale = 2)
     private BigDecimal valorTotal;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_movimento", nullable = false)
-    private EstoqueJpaEntity estoque;
+    public CompraEstoqueJpaEntity() {}
 
     public Long getIdCompra() { return idCompra; }
     public void setIdCompra(Long idCompra) { this.idCompra = idCompra; }
@@ -34,6 +32,4 @@ public class CompraEstoqueJpaEntity {
     public void setDataCompra(LocalDate dataCompra) { this.dataCompra = dataCompra; }
     public BigDecimal getValorTotal() { return valorTotal; }
     public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }
-    public EstoqueJpaEntity getEstoque() { return estoque; }
-    public void setEstoque(EstoqueJpaEntity estoque) { this.estoque = estoque; }
 }
