@@ -1,10 +1,11 @@
 package com.br.pizzaria.domain.valueobject;
 
 /**
- * Value Object: Status do Pedido
+ * Value Object (enum): StatusPedido
  */
 public enum StatusPedido {
-    RECEBIDO,
+    PENDENTE,
+    CONFIRMADO,
     EM_PREPARO,
     SAIU_PARA_ENTREGA,
     ENTREGUE,

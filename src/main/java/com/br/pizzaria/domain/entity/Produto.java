@@ -1,7 +1,13 @@
 package com.br.pizzaria.domain.entity;
 
+import com.br.pizzaria.domain.exception.DomainException;
+
 import java.math.BigDecimal;
 
+/**
+ * Entidade de domínio: Produto
+ * PK gerada: idProduto (Long)
+ */
 public class Produto {
 
     private Long idProduto;
@@ -19,6 +25,17 @@ public class Produto {
         this.estoqueAtual = estoqueAtual;
     }
 
+    public void reduzirEstoque(int quantidade) {
+        if (this.estoqueAtual < quantidade) {
+            throw new DomainException("Estoque insuficiente para o produto: " + nome);
+        }
+        this.estoqueAtual -= quantidade;
+    }
+
+    public void aumentarEstoque(int quantidade) {
+        this.estoqueAtual += quantidade;
+    }
+
     public Long getIdProduto() { return idProduto; }
     public void setIdProduto(Long idProduto) { this.idProduto = idProduto; }
     public String getNome() { return nome; }
@@ -28,5 +45,4 @@ public class Produto {
     public BigDecimal getPreco() { return preco; }
     public void setPreco(BigDecimal preco) { this.preco = preco; }
     public Integer getEstoqueAtual() { return estoqueAtual; }
-    public void setEstoqueAtual(Integer estoqueAtual) { this.estoqueAtual = estoqueAtual; }
 }

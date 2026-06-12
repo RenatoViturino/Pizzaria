@@ -2,9 +2,11 @@ package com.br.pizzaria.domain.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Entidade de domínio: Funcionario
+ * PK natural: cpfFuncionario (String)
+ */
 public class Funcionario {
 
     private String cpfFuncionario;
@@ -12,7 +14,6 @@ public class Funcionario {
     private String cargo;
     private BigDecimal salario;
     private LocalDate dataContratacao;
-    private List<PagamentoFuncionario> pagamentos = new ArrayList<>();
 
     public Funcionario() {}
 
@@ -26,7 +27,6 @@ public class Funcionario {
     }
 
     public String getCpfFuncionario() { return cpfFuncionario; }
-    public void setCpfFuncionario(String cpfFuncionario) { this.cpfFuncionario = cpfFuncionario; }
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
     public String getCargo() { return cargo; }
@@ -34,7 +34,4 @@ public class Funcionario {
     public BigDecimal getSalario() { return salario; }
     public void setSalario(BigDecimal salario) { this.salario = salario; }
     public LocalDate getDataContratacao() { return dataContratacao; }
-    public void setDataContratacao(LocalDate dataContratacao) { this.dataContratacao = dataContratacao; }
-    public List<PagamentoFuncionario> getPagamentos() { return pagamentos; }
-    public void setPagamentos(List<PagamentoFuncionario> pagamentos) { this.pagamentos = pagamentos; }
 }

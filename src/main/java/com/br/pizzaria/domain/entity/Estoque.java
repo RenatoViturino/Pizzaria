@@ -1,25 +1,34 @@
 package com.br.pizzaria.domain.entity;
 
+import com.br.pizzaria.domain.valueobject.TipoMovimentoEstoque;
+
 import java.time.LocalDateTime;
 
+/**
+ * Entidade de domínio: Estoque (movimentação)
+ * PK gerada: idMovimento (Long)
+ */
 public class Estoque {
 
     private Long idMovimento;
-    private String tipoMovimento;
+    private TipoMovimentoEstoque tipoMovimento;
     private Integer quantidade;
     private LocalDateTime dataHora;
-    private Produto produto;
+    private Long idProduto;
 
     public Estoque() {}
 
+    public Estoque(TipoMovimentoEstoque tipoMovimento, Integer quantidade, Long idProduto) {
+        this.tipoMovimento = tipoMovimento;
+        this.quantidade = quantidade;
+        this.idProduto = idProduto;
+        this.dataHora = LocalDateTime.now();
+    }
+
     public Long getIdMovimento() { return idMovimento; }
     public void setIdMovimento(Long idMovimento) { this.idMovimento = idMovimento; }
-    public String getTipoMovimento() { return tipoMovimento; }
-    public void setTipoMovimento(String tipoMovimento) { this.tipoMovimento = tipoMovimento; }
+    public TipoMovimentoEstoque getTipoMovimento() { return tipoMovimento; }
     public Integer getQuantidade() { return quantidade; }
-    public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
     public LocalDateTime getDataHora() { return dataHora; }
-    public void setDataHora(LocalDateTime dataHora) { this.dataHora = dataHora; }
-    public Produto getProduto() { return produto; }
-    public void setProduto(Produto produto) { this.produto = produto; }
+    public Long getIdProduto() { return idProduto; }
 }

@@ -1,9 +1,11 @@
 package com.br.pizzaria.domain.exception;
 
-import java.util.UUID;
-
+/**
+ * Exceção: Pedido não encontrado pelo ID.
+ */
 public class PedidoNaoEncontradoException extends DomainException {
-    public PedidoNaoEncontradoException(UUID id) {
-        super("Pedido não encontrado: " + id);
+
+    public PedidoNaoEncontradoException(Long idPedido) {
+        super("Pedido não encontrado com id: " + idPedido);
     }
 }

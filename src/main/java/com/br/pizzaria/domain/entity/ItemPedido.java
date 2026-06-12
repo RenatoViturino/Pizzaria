@@ -1,32 +1,41 @@
 package com.br.pizzaria.domain.entity;
 
+import com.br.pizzaria.domain.exception.DomainException;
+
 import java.math.BigDecimal;
 
+/**
+ * Entidade de domínio: ItemPedido
+ * PK gerada: idItem (Long)
+ */
 public class ItemPedido {
 
     private Long idItem;
     private Integer quantidade;
     private BigDecimal precoUnitario;
-    private Produto produto;
+    private Long idProduto;
 
     public ItemPedido() {}
 
-    public ItemPedido(Integer quantidade, BigDecimal precoUnitario, Produto produto) {
+    public ItemPedido(Long idProduto, Integer quantidade, BigDecimal precoUnitario) {
+        if (quantidade == null || quantidade <= 0) {
+            throw new DomainException("Quantidade do item deve ser maior que zero.");
+        }
+        if (precoUnitario == null || precoUnitario.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new DomainException("Preço unitário deve ser positivo.");
+        }
+        this.idProduto = idProduto;
         this.quantidade = quantidade;
         this.precoUnitario = precoUnitario;
-        this.produto = produto;
     }
 
-    public BigDecimal calcularSubtotal() {
+    public BigDecimal getSubtotal() {
         return precoUnitario.multiply(BigDecimal.valueOf(quantidade));
     }
 
     public Long getIdItem() { return idItem; }
     public void setIdItem(Long idItem) { this.idItem = idItem; }
     public Integer getQuantidade() { return quantidade; }
-    public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
     public BigDecimal getPrecoUnitario() { return precoUnitario; }
-    public void setPrecoUnitario(BigDecimal precoUnitario) { this.precoUnitario = precoUnitario; }
-    public Produto getProduto() { return produto; }
-    public void setProduto(Produto produto) { this.produto = produto; }
+    public Long getIdProduto() { return idProduto; }
 }

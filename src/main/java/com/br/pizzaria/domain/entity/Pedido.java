@@ -1,41 +1,58 @@
 package com.br.pizzaria.domain.entity;
 
+import com.br.pizzaria.domain.exception.DomainException;
+import com.br.pizzaria.domain.valueobject.StatusPedido;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+/**
+ * Entidade de domínio: Pedido
+ * PK gerada: idPedido (Long)
+ */
 public class Pedido {
 
     private Long idPedido;
     private LocalDateTime dataHora;
-    private String status;
+    private StatusPedido status;
     private BigDecimal valorTotal;
     private String cpfCliente;
     private List<ItemPedido> itens = new ArrayList<>();
-    private Entrega entrega;
 
     public Pedido() {}
 
-    public Pedido(String cpfCliente) {
+    public Pedido(String cpfCliente, List<ItemPedido> itens) {
+        if (itens == null || itens.isEmpty()) {
+            throw new DomainException("Pedido deve conter ao menos um item.");
+        }
         this.cpfCliente = cpfCliente;
+        this.itens = new ArrayList<>(itens);
         this.dataHora = LocalDateTime.now();
-        this.status = "RECEBIDO";
-        this.valorTotal = BigDecimal.ZERO;
+        this.status = StatusPedido.PENDENTE;
+        this.valorTotal = calcularTotal();
+    }
+
+    private BigDecimal calcularTotal() {
+        return itens.stream()
+                .map(ItemPedido::getSubtotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public void atualizarStatus(StatusPedido novoStatus) {
+        if (this.status == StatusPedido.CANCELADO) {
+            throw new DomainException("Pedido cancelado não pode ter status alterado.");
+        }
+        this.status = novoStatus;
     }
 
     public Long getIdPedido() { return idPedido; }
     public void setIdPedido(Long idPedido) { this.idPedido = idPedido; }
     public LocalDateTime getDataHora() { return dataHora; }
-    public void setDataHora(LocalDateTime dataHora) { this.dataHora = dataHora; }
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public StatusPedido getStatus() { return status; }
     public BigDecimal getValorTotal() { return valorTotal; }
-    public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }
     public String getCpfCliente() { return cpfCliente; }
-    public void setCpfCliente(String cpfCliente) { this.cpfCliente = cpfCliente; }
-    public List<ItemPedido> getItens() { return itens; }
-    public void setItens(List<ItemPedido> itens) { this.itens = itens; }
-    public Entrega getEntrega() { return entrega; }
-    public void setEntrega(Entrega entrega) { this.entrega = entrega; }
+    public List<ItemPedido> getItens() { return Collections.unmodifiableList(itens); }
 }
