@@ -6,7 +6,6 @@ import com.br.pizzaria.application.dto.response.EntregaResponse;
 import com.br.pizzaria.application.usecase.AvaliarEntregaUseCase;
 import com.br.pizzaria.application.usecase.CriarEntregaUseCase;
 import com.br.pizzaria.domain.entity.Entrega;
-import com.br.pizzaria.domain.entity.Funcionario;
 import com.br.pizzaria.domain.exception.DomainException;
 import com.br.pizzaria.domain.repository.EntregaRepository;
 import com.br.pizzaria.domain.repository.FuncionarioRepository;
@@ -28,10 +27,10 @@ public class EntregaService implements CriarEntregaUseCase, AvaliarEntregaUseCas
     @Override
     @Transactional
     public EntregaResponse executar(CriarEntregaRequest request) {
-        Funcionario funcionario = funcionarioRepository.buscarPorCpf(request.cpfFuncionario())
+        funcionarioRepository.buscarPorCpf(request.cpfFuncionario())
                 .orElseThrow(() -> new DomainException("Entregador não encontrado: " + request.cpfFuncionario()));
         Entrega entrega = new Entrega(request.cpfFuncionario(), request.idPedido());
-        return toResponse(entregaRepository.salvar(entrega), funcionario.getNome());
+        return toResponse(entregaRepository.salvar(entrega));
     }
 
     @Override
@@ -41,16 +40,19 @@ public class EntregaService implements CriarEntregaUseCase, AvaliarEntregaUseCas
                 .orElseThrow(() -> new DomainException("Entrega não encontrada: " + request.idEntrega()));
         if (request.avaliacaoCliente() != null) entrega.registrarAvaliacaoCliente(request.avaliacaoCliente());
         if (request.avaliacaoEntregador() != null) entrega.registrarAvaliacaoEntregador(request.avaliacaoEntregador());
-        Funcionario funcionario = funcionarioRepository.buscarPorCpf(entrega.getCpfFuncionario())
+        funcionarioRepository.buscarPorCpf(entrega.getCpfFuncionario())
                 .orElseThrow(() -> new DomainException("Entregador não encontrado."));
-        return toResponse(entregaRepository.salvar(entrega), funcionario.getNome());
+        return toResponse(entregaRepository.salvar(entrega));
     }
 
-    private EntregaResponse toResponse(Entrega e, String nomeFuncionario) {
+    private EntregaResponse toResponse(Entrega e) {
         return new EntregaResponse(
-                e.getIdEntrega(), e.getStatusEntrega().name(),
-                e.getAvaliacaoCliente(), e.getAvaliacaoEntregador(),
-                e.getCpfFuncionario(), nomeFuncionario, e.getIdPedido()
+                e.getIdEntrega(),
+                e.getCpfFuncionario(),
+                e.getIdPedido(),
+                e.getStatusEntrega().name(),
+                e.getAvaliacaoCliente(),
+                e.getAvaliacaoEntregador()
         );
     }
 }

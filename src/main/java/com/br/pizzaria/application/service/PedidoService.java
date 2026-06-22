@@ -107,13 +107,14 @@ public class PedidoService implements CriarPedidoUseCase, BuscarPedidoUseCase, A
         return toResponse(salvo);
     }
 
-    // ---- mapper interno ----
-
     private PedidoResponse toResponse(Pedido p) {
         List<ItemPedidoResponse> itens = p.getItens().stream().map(i ->
                 new ItemPedidoResponse(
-                        i.getIdItem(), i.getQuantidade(), i.getPrecoUnitario(), i.getSubtotal(),
-                        i.getIdProduto(), null
+                        i.getIdItem(),
+                        i.getIdProduto(),
+                        i.getQuantidade(),
+                        i.getPrecoUnitario(),
+                        i.getSubtotal()
                 )
         ).toList();
         return new PedidoResponse(
