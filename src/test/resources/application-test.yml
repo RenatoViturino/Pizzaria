@@ -8,19 +8,17 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-    # Fix: usar H2Dialect puro, sem dialect do PostgreSQL no profile de teste
     database-platform: org.hibernate.dialect.H2Dialect
     show-sql: false
     properties:
       hibernate:
         format_sql: false
-        # Fix: desabilita comandos DDL exclusivos do PostgreSQL (ex: SET client_min_messages)
         dialect:
           postgres:
             pgcrypto:
               regconfig: false
 
-  # Desabilita auto-configure do Kafka nos testes de integração
+  # Desabilita auto-configure do Kafka nos testes de integracao
   autoconfigure:
     exclude:
       - org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration
@@ -34,3 +32,12 @@ management:
   health:
     mail:
       enabled: false
+
+# -------------------------------------------------------
+# JWT — valores dummy para testes (nao usados em producao)
+# -------------------------------------------------------
+jwt:
+  # Chave HMAC-SHA256: minimo 32 bytes (256 bits) em Base64
+  secret: dGVzdGUtc2VjcmV0LWtleS1waXp6YXJpYS1qdW5pdC0yMDI2
+  # Expiracao: 1 hora em milissegundos
+  expiration: 3600000
