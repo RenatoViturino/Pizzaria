@@ -1,15 +1,14 @@
 package com.br.pizzaria.domain.event;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 /**
- * Evento de domínio: PedidoCriado
- * Publicado via Kafka quando um novo pedido é confirmado.
+ * Evento de domínio: Pedido criado.
+ * Publicado no Kafka via EventPublisher (infraestrutura).
+ * Alinhado ao modelo de domínio: cpfCliente como identificador de Cliente.
  */
 public record PedidoCriadoEvent(
-        Long idPedido,
-        String cpfCliente,
-        BigDecimal valorTotal,
-        LocalDateTime dataHora
+    Long pedidoId,         // PK de Pedido (Long)
+    String cpfCliente,     // PK de Cliente (String) — era UUID clienteId, corrigido
+    Instant ocorridoEm
 ) {}

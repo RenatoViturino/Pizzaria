@@ -1,54 +1,32 @@
 package com.br.pizzaria.domain.entity;
 
-import com.br.pizzaria.domain.valueobject.StatusEntrega;
-
 /**
  * Entidade de domínio: Entrega
- * PK gerada: idEntrega (Long)
+ * PK: idEntrega (Long) — conforme diagrama de classes
+ * Referencia Entregador (especialização de Funcionario) diretamente.
  */
 public class Entrega {
 
     private Long idEntrega;
-    private StatusEntrega statusEntrega;
+    private StatusEntrega statusEntrega;  // era String — substituído por enum tipado
     private Integer avaliacaoCliente;
     private Integer avaliacaoEntregador;
-    private String cpfEntregador;   // renomeado de cpfFuncionario — Entrega é responsabilidade do Entregador
-    private Long idPedido;
+    private Entregador entregador;  // era Funcionario genérico — corrigido para Entregador
 
     public Entrega() {}
 
-    public Entrega(String cpfEntregador, Long idPedido) {
-        if (cpfEntregador == null || cpfEntregador.isBlank())
-            throw new IllegalArgumentException("CPF do entregador é obrigatório.");
-        if (idPedido == null)
-            throw new IllegalArgumentException("idPedido é obrigatório.");
-        this.cpfEntregador = cpfEntregador;
-        this.idPedido = idPedido;
-        this.statusEntrega = StatusEntrega.AGUARDANDO;
-    }
+    public Long getIdEntrega() { return idEntrega; }
+    public void setIdEntrega(Long idEntrega) { this.idEntrega = idEntrega; }
 
-    public void registrarAvaliacaoCliente(int nota) {
-        if (nota < 1 || nota > 5) throw new IllegalArgumentException("Nota deve ser entre 1 e 5.");
-        this.avaliacaoCliente = nota;
-    }
+    public StatusEntrega getStatusEntrega() { return statusEntrega; }
+    public void setStatusEntrega(StatusEntrega statusEntrega) { this.statusEntrega = statusEntrega; }
 
-    public void registrarAvaliacaoEntregador(int nota) {
-        if (nota < 1 || nota > 5) throw new IllegalArgumentException("Nota deve ser entre 1 e 5.");
-        this.avaliacaoEntregador = nota;
-    }
+    public Integer getAvaliacaoCliente() { return avaliacaoCliente; }
+    public void setAvaliacaoCliente(Integer avaliacaoCliente) { this.avaliacaoCliente = avaliacaoCliente; }
 
-    public void avancarStatus(StatusEntrega novoStatus) {
-        if (this.statusEntrega == StatusEntrega.ENTREGUE)
-            throw new IllegalStateException("Entrega já finalizada.");
-        this.statusEntrega = novoStatus;
-    }
+    public Integer getAvaliacaoEntregador() { return avaliacaoEntregador; }
+    public void setAvaliacaoEntregador(Integer avaliacaoEntregador) { this.avaliacaoEntregador = avaliacaoEntregador; }
 
-    public Long getIdEntrega()                          { return idEntrega; }
-    public void setIdEntrega(Long idEntrega)             { this.idEntrega = idEntrega; }
-    public StatusEntrega getStatusEntrega()             { return statusEntrega; }
-    public void setStatusEntrega(StatusEntrega s)       { this.statusEntrega = s; }
-    public Integer getAvaliacaoCliente()                { return avaliacaoCliente; }
-    public Integer getAvaliacaoEntregador()             { return avaliacaoEntregador; }
-    public String getCpfEntregador()                    { return cpfEntregador; }
-    public Long getIdPedido()                           { return idPedido; }
+    public Entregador getEntregador() { return entregador; }
+    public void setEntregador(Entregador entregador) { this.entregador = entregador; }
 }

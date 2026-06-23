@@ -1,19 +1,20 @@
 package com.br.pizzaria.domain.port;
 
 /**
- * Porta de saída (Hexagonal Architecture): contrato para publicação de eventos de domínio.
- * O domínio depende apenas desta interface; a implementação concreta
- * ({@code KafkaEventPublisher}) fica na camada de infraestrutura.
+ * Porta de saída (Output Port) — princípio da Arquitetura Hexagonal.
+ * O domínio depende desta interface, nunca da implementação Kafka.
+ * A infraestrutura (KafkaEventPublisher) implementa este contrato.
  *
- * @param <T> tipo do evento de domínio
+ * Substitui FilaMensageria.java que estava incorretamente no domínio.
  */
-public interface EventPublisher<T> {
+public interface EventPublisher {
 
     /**
-     * Publica um evento de domínio no barramento de mensagens.
+     * Publica um evento de domínio.
      *
-     * @param topic  tópico de destino
-     * @param event  objeto do evento
+     * @param topico  nome do tópico/fila destino
+     * @param chave   chave de particionamento (ex: pedidoId, cpfCliente)
+     * @param evento  payload do evento (record ou DTO serializável)
      */
-    void publish(String topic, T event);
+    void publicar(String topico, String chave, Object evento);
 }

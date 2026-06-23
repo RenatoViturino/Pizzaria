@@ -1,9 +1,14 @@
 package com.br.pizzaria.infrastructure.persistence.entity;
 
+import com.br.pizzaria.domain.entity.StatusEntrega;
 import jakarta.persistence.*;
 
+/**
+ * Entidade JPA: Entrega
+ * Relacionada a PedidoJpaEntity (OneToOne) e EntregadorJpaEntity (ManyToOne).
+ */
 @Entity
-@Table(name = "entrega")
+@Table(name = "entregas")
 public class EntregaJpaEntity {
 
     @Id
@@ -11,8 +16,9 @@ public class EntregaJpaEntity {
     @Column(name = "id_entrega")
     private Long idEntrega;
 
-    @Column(name = "status_entrega", nullable = false, length = 20)
-    private String statusEntrega;
+    @Enumerated(EnumType.STRING)           // persiste nome legível no banco
+    @Column(name = "status_entrega", nullable = false, length = 30)
+    private StatusEntrega statusEntrega;
 
     @Column(name = "avaliacao_cliente")
     private Integer avaliacaoCliente;
@@ -20,24 +26,29 @@ public class EntregaJpaEntity {
     @Column(name = "avaliacao_entregador")
     private Integer avaliacaoEntregador;
 
-    @Column(name = "cpf_funcionario", nullable = false, length = 11)
-    private String cpfFuncionario;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_pedido", nullable = false)
+    private PedidoJpaEntity pedido;
 
-    @Column(name = "id_pedido", nullable = false)
-    private Long idPedido;
-
-    public EntregaJpaEntity() {}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_entregador", nullable = false)
+    private EntregadorJpaEntity entregador;  // era FuncionarioJpaEntity — corrigido
 
     public Long getIdEntrega() { return idEntrega; }
     public void setIdEntrega(Long idEntrega) { this.idEntrega = idEntrega; }
-    public String getStatusEntrega() { return statusEntrega; }
-    public void setStatusEntrega(String statusEntrega) { this.statusEntrega = statusEntrega; }
+
+    public StatusEntrega getStatusEntrega() { return statusEntrega; }
+    public void setStatusEntrega(StatusEntrega statusEntrega) { this.statusEntrega = statusEntrega; }
+
     public Integer getAvaliacaoCliente() { return avaliacaoCliente; }
     public void setAvaliacaoCliente(Integer avaliacaoCliente) { this.avaliacaoCliente = avaliacaoCliente; }
+
     public Integer getAvaliacaoEntregador() { return avaliacaoEntregador; }
     public void setAvaliacaoEntregador(Integer avaliacaoEntregador) { this.avaliacaoEntregador = avaliacaoEntregador; }
-    public String getCpfFuncionario() { return cpfFuncionario; }
-    public void setCpfFuncionario(String cpfFuncionario) { this.cpfFuncionario = cpfFuncionario; }
-    public Long getIdPedido() { return idPedido; }
-    public void setIdPedido(Long idPedido) { this.idPedido = idPedido; }
+
+    public PedidoJpaEntity getPedido() { return pedido; }
+    public void setPedido(PedidoJpaEntity pedido) { this.pedido = pedido; }
+
+    public EntregadorJpaEntity getEntregador() { return entregador; }
+    public void setEntregador(EntregadorJpaEntity entregador) { this.entregador = entregador; }
 }

@@ -1,13 +1,19 @@
 package com.br.pizzaria.infrastructure.persistence.entity;
 
+import com.br.pizzaria.domain.entity.StatusPedido;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Entidade JPA: Pedido
+ * PK: idPedido (Long) — conforme diagrama de classes
+ * Status persistido como String (EnumType.STRING) para legibilidade no banco.
+ */
 @Entity
-@Table(name = "pedido")
+@Table(name = "pedidos")
 public class PedidoJpaEntity {
 
     @Id
@@ -18,30 +24,41 @@ public class PedidoJpaEntity {
     @Column(name = "data_hora", nullable = false)
     private LocalDateTime dataHora;
 
-    @Column(name = "status", nullable = false, length = 30)
-    private String status;
+    @Enumerated(EnumType.STRING)          // persiste "RECEBIDO", "EM_PREPARO" etc.
+    @Column(nullable = false, length = 30)
+    private StatusPedido status;
 
     @Column(name = "valor_total", nullable = false, precision = 10, scale = 2)
     private BigDecimal valorTotal;
 
-    @Column(name = "cpf_cliente", nullable = false, length = 11)
-    private String cpfCliente;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cpf_cliente", nullable = false)
+    private ClienteJpaEntity cliente;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemPedidoJpaEntity> itens = new ArrayList<>();
 
-    public PedidoJpaEntity() {}
+    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private EntregaJpaEntity entrega;
 
     public Long getIdPedido() { return idPedido; }
     public void setIdPedido(Long idPedido) { this.idPedido = idPedido; }
+
     public LocalDateTime getDataHora() { return dataHora; }
     public void setDataHora(LocalDateTime dataHora) { this.dataHora = dataHora; }
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+
+    public StatusPedido getStatus() { return status; }
+    public void setStatus(StatusPedido status) { this.status = status; }
+
     public BigDecimal getValorTotal() { return valorTotal; }
     public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }
-    public String getCpfCliente() { return cpfCliente; }
-    public void setCpfCliente(String cpfCliente) { this.cpfCliente = cpfCliente; }
+
+    public ClienteJpaEntity getCliente() { return cliente; }
+    public void setCliente(ClienteJpaEntity cliente) { this.cliente = cliente; }
+
     public List<ItemPedidoJpaEntity> getItens() { return itens; }
     public void setItens(List<ItemPedidoJpaEntity> itens) { this.itens = itens; }
+
+    public EntregaJpaEntity getEntrega() { return entrega; }
+    public void setEntrega(EntregaJpaEntity entrega) { this.entrega = entrega; }
 }

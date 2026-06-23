@@ -1,30 +1,37 @@
-package com.br.pizzaria.domain.entity;
+package com.br.pizzaria.infrastructure.persistence.entity;
+
+import jakarta.persistence.*;
 
 /**
- * Entidade de domínio: Entregador
- * Especialização de Funcionario responsável pelas entregas.
- * Conforme diagrama de classes e diagrama de estado de entrega.
+ * Entidade JPA: Entregador
+ * Tabela separada de funcionarios — especialização conforme diagrama de classes.
  */
-public class Entregador {
+@Entity
+@Table(name = "entregadores")
+public class EntregadorJpaEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_entregador")
     private Long idEntregador;
+
+    @Column(nullable = false, length = 150)
     private String nome;
+
+    @Column(nullable = false, length = 14, unique = true)
     private String cpf;
+
+    @Column(nullable = false, length = 20)
     private String telefone;
-    private String placa;          // placa do veículo
-    private String tipoVeiculo;    // MOTO, CARRO, BICICLETA
-    private Boolean ativo;
 
-    public Entregador() {}
+    @Column(nullable = false, length = 10)
+    private String placa;
 
-    public Entregador(String nome, String cpf, String telefone, String placa, String tipoVeiculo) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
-        this.placa = placa;
-        this.tipoVeiculo = tipoVeiculo;
-        this.ativo = true;
-    }
+    @Column(name = "tipo_veiculo", nullable = false, length = 20)
+    private String tipoVeiculo;  // MOTO, CARRO, BICICLETA
+
+    @Column(nullable = false)
+    private Boolean ativo = true;
 
     public Long getIdEntregador() { return idEntregador; }
     public void setIdEntregador(Long idEntregador) { this.idEntregador = idEntregador; }

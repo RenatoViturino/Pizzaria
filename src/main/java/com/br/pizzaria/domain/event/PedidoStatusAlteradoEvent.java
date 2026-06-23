@@ -1,17 +1,16 @@
 package com.br.pizzaria.domain.event;
 
-import com.br.pizzaria.domain.valueobject.StatusPedido;
-
-import java.time.LocalDateTime;
+import com.br.pizzaria.domain.entity.StatusPedido;
+import java.time.Instant;
 
 /**
- * Evento de domínio: PedidoStatusAlterado
- * Publicado via Kafka quando o status de um pedido muda.
+ * Evento de domínio: Status do pedido alterado.
+ * Publicado no Kafka a cada transição de estado (diagrama de estados).
  */
 public record PedidoStatusAlteradoEvent(
-        Long idPedido,
-        String cpfCliente,
-        StatusPedido statusAnterior,
-        StatusPedido novoStatus,
-        LocalDateTime dataHora
+    Long pedidoId,
+    String cpfCliente,
+    StatusPedido statusAnterior,
+    StatusPedido novoStatus,
+    Instant ocorridoEm
 ) {}

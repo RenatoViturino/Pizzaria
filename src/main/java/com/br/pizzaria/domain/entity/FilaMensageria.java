@@ -1,18 +1,47 @@
 package com.br.pizzaria.domain.entity;
 
 /**
- * @deprecated Esta classe não pertence ao domínio.
- * O domínio não deve conhecer infraestrutura de mensageria.
- * Use a interface {@code domain.port.EventPublisher} para publicar eventos
- * e {@code infrastructure.messaging.KafkaEventPublisher} como implementação.
- * Esta classe será removida em breve.
+ * @deprecated Esta classe foi substituída pela interface EventPublisher em
+ * com.br.pizzaria.domain.port.EventPublisher e pela implementação
+ * com.br.pizzaria.infrastructure.messaging.KafkaEventPublisher.
+ *
+ * Mantida temporariamente para evitar quebra de compilação em código que
+ * ainda a referencie. Remover após migração completa.
+ *
+ * @see com.br.pizzaria.domain.port.EventPublisher
  */
-@Deprecated(since = "refactoring", forRemoval = true)
+@Deprecated(since = "refactor/event-publisher", forRemoval = true)
 public class FilaMensageria {
 
-    private FilaMensageria() {
+    private String nomeFila;
+    private String tipo;
+
+    public FilaMensageria() {}
+
+    public FilaMensageria(String nomeFila, String tipo) {
+        this.nomeFila = nomeFila;
+        this.tipo = tipo;
+    }
+
+    /** @deprecated use {@link com.br.pizzaria.domain.port.EventPublisher#publicar} */
+    @Deprecated(forRemoval = true)
+    public void publicarEvento() {
         throw new UnsupportedOperationException(
-            "FilaMensageria está depreciada. Use EventPublisher via injeção de dependência."
+            "Use EventPublisher.publicar() via injeção de dependência."
         );
     }
+
+    /** @deprecated use {@link com.br.pizzaria.domain.port.EventPublisher#publicar} */
+    @Deprecated(forRemoval = true)
+    public void consumirEvento() {
+        throw new UnsupportedOperationException(
+            "Use @KafkaListener na camada de infraestrutura."
+        );
+    }
+
+    public String getNomeFila() { return nomeFila; }
+    public void setNomeFila(String nomeFila) { this.nomeFila = nomeFila; }
+
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
 }
