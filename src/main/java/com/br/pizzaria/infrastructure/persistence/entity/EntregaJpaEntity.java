@@ -1,6 +1,6 @@
 package com.br.pizzaria.infrastructure.persistence.entity;
 
-import com.br.pizzaria.domain.entity.StatusEntrega;
+import com.br.pizzaria.domain.valueobject.StatusEntrega;
 import jakarta.persistence.*;
 
 /**
@@ -16,7 +16,7 @@ public class EntregaJpaEntity {
     @Column(name = "id_entrega")
     private Long idEntrega;
 
-    @Enumerated(EnumType.STRING)           // persiste nome legível no banco
+    @Enumerated(EnumType.STRING)
     @Column(name = "status_entrega", nullable = false, length = 30)
     private StatusEntrega statusEntrega;
 
@@ -32,23 +32,18 @@ public class EntregaJpaEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_entregador", nullable = false)
-    private EntregadorJpaEntity entregador;  // era FuncionarioJpaEntity — corrigido
+    private EntregadorJpaEntity entregador;
 
     public Long getIdEntrega() { return idEntrega; }
     public void setIdEntrega(Long idEntrega) { this.idEntrega = idEntrega; }
-
     public StatusEntrega getStatusEntrega() { return statusEntrega; }
     public void setStatusEntrega(StatusEntrega statusEntrega) { this.statusEntrega = statusEntrega; }
-
     public Integer getAvaliacaoCliente() { return avaliacaoCliente; }
     public void setAvaliacaoCliente(Integer avaliacaoCliente) { this.avaliacaoCliente = avaliacaoCliente; }
-
     public Integer getAvaliacaoEntregador() { return avaliacaoEntregador; }
     public void setAvaliacaoEntregador(Integer avaliacaoEntregador) { this.avaliacaoEntregador = avaliacaoEntregador; }
-
     public PedidoJpaEntity getPedido() { return pedido; }
     public void setPedido(PedidoJpaEntity pedido) { this.pedido = pedido; }
-
     public EntregadorJpaEntity getEntregador() { return entregador; }
     public void setEntregador(EntregadorJpaEntity entregador) { this.entregador = entregador; }
 }

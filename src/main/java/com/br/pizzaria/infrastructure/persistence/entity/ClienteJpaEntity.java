@@ -1,27 +1,34 @@
 package com.br.pizzaria.infrastructure.persistence.entity;
 
+import com.br.pizzaria.domain.valueobject.TipoPerfil;
 import jakarta.persistence.*;
 
+/**
+ * Entidade JPA: Cliente
+ * PK natural: cpf_cliente (String) — conforme diagrama de classes.
+ * tipoPerfil persistido como String (EnumType.STRING) para legibilidade no banco.
+ */
 @Entity
-@Table(name = "cliente")
+@Table(name = "clientes")
 public class ClienteJpaEntity {
 
     @Id
     @Column(name = "cpf_cliente", length = 11)
     private String cpfCliente;
 
-    @Column(name = "nome", nullable = false)
+    @Column(name = "nome", nullable = false, length = 150)
     private String nome;
 
-    @Column(name = "telefone", length = 11)
+    @Column(name = "telefone", length = 20)
     private String telefone;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true, length = 100)
     private String email;
 
     @Column(name = "senha", nullable = false)
     private String senha;
 
+    // Endereço desnormalizado (value object Endereco mapeado inline)
     @Column(name = "logradouro")
     private String logradouro;
 
@@ -46,8 +53,9 @@ public class ClienteJpaEntity {
     @Column(name = "pontuacao")
     private Integer pontuacao;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "tipo_perfil", length = 10)
-    private String tipoPerfil;
+    private TipoPerfil tipoPerfil;
 
     public ClienteJpaEntity() {}
 
@@ -77,6 +85,6 @@ public class ClienteJpaEntity {
     public void setCep(String cep) { this.cep = cep; }
     public Integer getPontuacao() { return pontuacao; }
     public void setPontuacao(Integer pontuacao) { this.pontuacao = pontuacao; }
-    public String getTipoPerfil() { return tipoPerfil; }
-    public void setTipoPerfil(String tipoPerfil) { this.tipoPerfil = tipoPerfil; }
+    public TipoPerfil getTipoPerfil() { return tipoPerfil; }
+    public void setTipoPerfil(TipoPerfil tipoPerfil) { this.tipoPerfil = tipoPerfil; }
 }

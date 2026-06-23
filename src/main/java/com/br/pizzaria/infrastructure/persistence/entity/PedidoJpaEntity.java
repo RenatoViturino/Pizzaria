@@ -1,6 +1,6 @@
 package com.br.pizzaria.infrastructure.persistence.entity;
 
-import com.br.pizzaria.domain.entity.StatusPedido;
+import com.br.pizzaria.domain.valueobject.StatusPedido;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -24,7 +24,7 @@ public class PedidoJpaEntity {
     @Column(name = "data_hora", nullable = false)
     private LocalDateTime dataHora;
 
-    @Enumerated(EnumType.STRING)          // persiste "RECEBIDO", "EM_PREPARO" etc.
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
     private StatusPedido status;
 
@@ -43,22 +43,16 @@ public class PedidoJpaEntity {
 
     public Long getIdPedido() { return idPedido; }
     public void setIdPedido(Long idPedido) { this.idPedido = idPedido; }
-
     public LocalDateTime getDataHora() { return dataHora; }
     public void setDataHora(LocalDateTime dataHora) { this.dataHora = dataHora; }
-
     public StatusPedido getStatus() { return status; }
     public void setStatus(StatusPedido status) { this.status = status; }
-
     public BigDecimal getValorTotal() { return valorTotal; }
     public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }
-
     public ClienteJpaEntity getCliente() { return cliente; }
     public void setCliente(ClienteJpaEntity cliente) { this.cliente = cliente; }
-
     public List<ItemPedidoJpaEntity> getItens() { return itens; }
     public void setItens(List<ItemPedidoJpaEntity> itens) { this.itens = itens; }
-
     public EntregaJpaEntity getEntrega() { return entrega; }
     public void setEntrega(EntregaJpaEntity entrega) { this.entrega = entrega; }
 }

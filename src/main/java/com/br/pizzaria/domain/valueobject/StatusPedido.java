@@ -2,27 +2,34 @@ package com.br.pizzaria.domain.valueobject;
 
 /**
  * Value Object (enum): StatusPedido
- * Reflete o diagrama de estados: PENDENTE → CONFIRMADO → EM_PREPARO → SAIU_PARA_ENTREGA → ENTREGUE
- * Cancelamento permitido apenas nos estados iniciais.
+ *
+ * Estados alinhados ao diagrama de estado:
+ *   Criado → Pago → EmPreparacao → Pronto → EmEntrega → Concluido → Avaliado
+ *   Cancelado pode ocorrer de: Criado, Pago, EmPreparacao (via cancelamento cliente/sistema)
+ *   EmEntrega → Cancelado (via falha na entrega)
  */
 public enum StatusPedido {
-    PENDENTE,
-    CONFIRMADO,
-    EM_PREPARO,
-    SAIU_PARA_ENTREGA,
-    ENTREGUE,
+    CRIADO,
+    PAGO,
+    EM_PREPARACAO,
+    PRONTO,
+    EM_ENTREGA,
+    CONCLUIDO,
+    AVALIADO,
     CANCELADO;
 
     /**
-     * Valida se a transição para {@code destino} é permitida pelas regras de negócio.
+     * Valida se a transição para {@code destino} é permitida pelas regras do diagrama de estado.
      */
     public boolean podeTransicionarPara(StatusPedido destino) {
         return switch (this) {
-            case PENDENTE          -> destino == CONFIRMADO  || destino == CANCELADO;
-            case CONFIRMADO        -> destino == EM_PREPARO  || destino == CANCELADO;
-            case EM_PREPARO        -> destino == SAIU_PARA_ENTREGA;
-            case SAIU_PARA_ENTREGA -> destino == ENTREGUE;
-            case ENTREGUE, CANCELADO -> false;
+            case CRIADO        -> destino == PAGO        || destino == CANCELADO;
+            case PAGO          -> destino == EM_PREPARACAO || destino == CANCELADO;
+            case EM_PREPARACAO -> destino == PRONTO      || destino == CANCELADO;
+            case PRONTO        -> destino == EM_ENTREGA;
+            case EM_ENTREGA    -> destino == CONCLUIDO   || destino == CANCELADO;
+            case CONCLUIDO     -> destino == AVALIADO;
+            case AVALIADO, CANCELADO -> false;
         };
     }
 }
