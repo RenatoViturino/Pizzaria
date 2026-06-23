@@ -13,7 +13,7 @@ public class Pedido {
 
     private Long idPedido;
     private LocalDateTime dataHora;
-    private String status;
+    private StatusPedido status;  // era String — substituído por enum tipado
     private BigDecimal valorTotal;
     private String cpfCliente;
     private List<ItemPedido> itens = new ArrayList<>();
@@ -24,8 +24,21 @@ public class Pedido {
     public Pedido(String cpfCliente) {
         this.cpfCliente = cpfCliente;
         this.dataHora = LocalDateTime.now();
-        this.status = "RECEBIDO";
+        this.status = StatusPedido.RECEBIDO;
         this.valorTotal = BigDecimal.ZERO;
+    }
+
+    /**
+     * Realiza transição de status validando as regras do diagrama de estados.
+     * Lança IllegalStateException se a transição não for permitida.
+     */
+    public void atualizarStatus(StatusPedido novoStatus) {
+        if (!this.status.podeTransicionarPara(novoStatus)) {
+            throw new IllegalStateException(
+                "Transição inválida: %s → %s".formatted(this.status, novoStatus)
+            );
+        }
+        this.status = novoStatus;
     }
 
     public Long getIdPedido() { return idPedido; }
@@ -34,8 +47,8 @@ public class Pedido {
     public LocalDateTime getDataHora() { return dataHora; }
     public void setDataHora(LocalDateTime dataHora) { this.dataHora = dataHora; }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public StatusPedido getStatus() { return status; }
+    public void setStatus(StatusPedido status) { this.status = status; }
 
     public BigDecimal getValorTotal() { return valorTotal; }
     public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }

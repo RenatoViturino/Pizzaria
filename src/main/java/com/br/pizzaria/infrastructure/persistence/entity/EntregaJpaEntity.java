@@ -1,10 +1,11 @@
 package com.br.pizzaria.infrastructure.persistence.entity;
 
+import com.br.pizzaria.domain.entity.StatusEntrega;
 import jakarta.persistence.*;
 
 /**
  * Entidade JPA: Entrega
- * PK: idEntrega (Long) — conforme diagrama de classes
+ * Relacionada a PedidoJpaEntity (OneToOne) e EntregadorJpaEntity (ManyToOne).
  */
 @Entity
 @Table(name = "entregas")
@@ -15,8 +16,9 @@ public class EntregaJpaEntity {
     @Column(name = "id_entrega")
     private Long idEntrega;
 
+    @Enumerated(EnumType.STRING)           // persiste nome legível no banco
     @Column(name = "status_entrega", nullable = false, length = 30)
-    private String statusEntrega;
+    private StatusEntrega statusEntrega;
 
     @Column(name = "avaliacao_cliente")
     private Integer avaliacaoCliente;
@@ -29,14 +31,14 @@ public class EntregaJpaEntity {
     private PedidoJpaEntity pedido;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cpf_funcionario", nullable = false)
-    private FuncionarioJpaEntity funcionario;
+    @JoinColumn(name = "id_entregador", nullable = false)
+    private EntregadorJpaEntity entregador;  // era FuncionarioJpaEntity — corrigido
 
     public Long getIdEntrega() { return idEntrega; }
     public void setIdEntrega(Long idEntrega) { this.idEntrega = idEntrega; }
 
-    public String getStatusEntrega() { return statusEntrega; }
-    public void setStatusEntrega(String statusEntrega) { this.statusEntrega = statusEntrega; }
+    public StatusEntrega getStatusEntrega() { return statusEntrega; }
+    public void setStatusEntrega(StatusEntrega statusEntrega) { this.statusEntrega = statusEntrega; }
 
     public Integer getAvaliacaoCliente() { return avaliacaoCliente; }
     public void setAvaliacaoCliente(Integer avaliacaoCliente) { this.avaliacaoCliente = avaliacaoCliente; }
@@ -47,6 +49,6 @@ public class EntregaJpaEntity {
     public PedidoJpaEntity getPedido() { return pedido; }
     public void setPedido(PedidoJpaEntity pedido) { this.pedido = pedido; }
 
-    public FuncionarioJpaEntity getFuncionario() { return funcionario; }
-    public void setFuncionario(FuncionarioJpaEntity funcionario) { this.funcionario = funcionario; }
+    public EntregadorJpaEntity getEntregador() { return entregador; }
+    public void setEntregador(EntregadorJpaEntity entregador) { this.entregador = entregador; }
 }

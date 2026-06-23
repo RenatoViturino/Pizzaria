@@ -1,5 +1,6 @@
 package com.br.pizzaria.infrastructure.persistence.entity;
 
+import com.br.pizzaria.domain.entity.StatusPedido;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.util.List;
 /**
  * Entidade JPA: Pedido
  * PK: idPedido (Long) — conforme diagrama de classes
+ * Status persistido como String (EnumType.STRING) para legibilidade no banco.
  */
 @Entity
 @Table(name = "pedidos")
@@ -22,8 +24,9 @@ public class PedidoJpaEntity {
     @Column(name = "data_hora", nullable = false)
     private LocalDateTime dataHora;
 
+    @Enumerated(EnumType.STRING)          // persiste "RECEBIDO", "EM_PREPARO" etc.
     @Column(nullable = false, length = 30)
-    private String status;
+    private StatusPedido status;
 
     @Column(name = "valor_total", nullable = false, precision = 10, scale = 2)
     private BigDecimal valorTotal;
@@ -44,8 +47,8 @@ public class PedidoJpaEntity {
     public LocalDateTime getDataHora() { return dataHora; }
     public void setDataHora(LocalDateTime dataHora) { this.dataHora = dataHora; }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public StatusPedido getStatus() { return status; }
+    public void setStatus(StatusPedido status) { this.status = status; }
 
     public BigDecimal getValorTotal() { return valorTotal; }
     public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }

@@ -1,14 +1,14 @@
 package com.br.pizzaria.domain.event;
 
 import java.time.Instant;
-import java.util.UUID;
 
 /**
  * Evento de domínio: Pedido criado.
- * Publicado no Kafka via infraestrutura.
+ * Publicado no Kafka via EventPublisher (infraestrutura).
+ * Alinhado ao modelo de domínio: cpfCliente como identificador de Cliente.
  */
 public record PedidoCriadoEvent(
-    UUID pedidoId,
-    UUID clienteId,
+    Long pedidoId,         // PK de Pedido (Long)
+    String cpfCliente,     // PK de Cliente (String) — era UUID clienteId, corrigido
     Instant ocorridoEm
 ) {}
