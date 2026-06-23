@@ -12,13 +12,17 @@ public class Entrega {
     private StatusEntrega statusEntrega;
     private Integer avaliacaoCliente;
     private Integer avaliacaoEntregador;
-    private String cpfFuncionario;
+    private String cpfEntregador;   // renomeado de cpfFuncionario — Entrega é responsabilidade do Entregador
     private Long idPedido;
 
     public Entrega() {}
 
-    public Entrega(String cpfFuncionario, Long idPedido) {
-        this.cpfFuncionario = cpfFuncionario;
+    public Entrega(String cpfEntregador, Long idPedido) {
+        if (cpfEntregador == null || cpfEntregador.isBlank())
+            throw new IllegalArgumentException("CPF do entregador é obrigatório.");
+        if (idPedido == null)
+            throw new IllegalArgumentException("idPedido é obrigatório.");
+        this.cpfEntregador = cpfEntregador;
         this.idPedido = idPedido;
         this.statusEntrega = StatusEntrega.AGUARDANDO;
     }
@@ -33,12 +37,18 @@ public class Entrega {
         this.avaliacaoEntregador = nota;
     }
 
-    public Long getIdEntrega() { return idEntrega; }
-    public void setIdEntrega(Long idEntrega) { this.idEntrega = idEntrega; }
-    public StatusEntrega getStatusEntrega() { return statusEntrega; }
-    public void setStatusEntrega(StatusEntrega statusEntrega) { this.statusEntrega = statusEntrega; }
-    public Integer getAvaliacaoCliente() { return avaliacaoCliente; }
-    public Integer getAvaliacaoEntregador() { return avaliacaoEntregador; }
-    public String getCpfFuncionario() { return cpfFuncionario; }
-    public Long getIdPedido() { return idPedido; }
+    public void avancarStatus(StatusEntrega novoStatus) {
+        if (this.statusEntrega == StatusEntrega.ENTREGUE)
+            throw new IllegalStateException("Entrega já finalizada.");
+        this.statusEntrega = novoStatus;
+    }
+
+    public Long getIdEntrega()                          { return idEntrega; }
+    public void setIdEntrega(Long idEntrega)             { this.idEntrega = idEntrega; }
+    public StatusEntrega getStatusEntrega()             { return statusEntrega; }
+    public void setStatusEntrega(StatusEntrega s)       { this.statusEntrega = s; }
+    public Integer getAvaliacaoCliente()                { return avaliacaoCliente; }
+    public Integer getAvaliacaoEntregador()             { return avaliacaoEntregador; }
+    public String getCpfEntregador()                    { return cpfEntregador; }
+    public Long getIdPedido()                           { return idPedido; }
 }
