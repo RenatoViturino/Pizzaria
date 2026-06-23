@@ -61,8 +61,10 @@ public class PedidoService implements CriarPedidoUseCase, BuscarPedidoUseCase, A
         Pedido salvo = pedidoRepository.salvar(pedido);
 
         eventPublisher.publishEvent(new PedidoCriadoEvent(
-                salvo.getIdPedido(), salvo.getCpfCliente(),
-                salvo.getValorTotal(), salvo.getDataHora()
+                salvo.getIdPedido(),
+                salvo.getCpfCliente(),
+                salvo.getValorTotal(),
+                salvo.getDataHora()
         ));
 
         return toResponse(salvo);
@@ -100,8 +102,11 @@ public class PedidoService implements CriarPedidoUseCase, BuscarPedidoUseCase, A
         Pedido salvo = pedidoRepository.salvar(pedido);
 
         eventPublisher.publishEvent(new PedidoStatusAlteradoEvent(
-                salvo.getIdPedido(), salvo.getCpfCliente(),
-                statusAnterior, novoStatus, salvo.getDataHora()
+                salvo.getIdPedido(),
+                salvo.getCpfCliente(),
+                statusAnterior,
+                novoStatus,
+                salvo.getDataHora()
         ));
 
         return toResponse(salvo);

@@ -42,7 +42,10 @@ public class EntregaRepositoryAdapter implements EntregaRepository {
     private EntregaJpaEntity toJpa(Entrega e) {
         EntregaJpaEntity je = new EntregaJpaEntity();
         je.setIdEntrega(e.getIdEntrega());
-        je.setStatusEntrega(e.getStatusEntrega().name());
+        // StatusEntrega persisted as String via @Enumerated(EnumType.STRING) na JPA entity
+        je.setStatusEntrega(e.getStatusEntrega() != null
+                ? e.getStatusEntrega().name()
+                : StatusEntrega.PENDENTE.name());
         je.setAvaliacaoCliente(e.getAvaliacaoCliente());
         je.setAvaliacaoEntregador(e.getAvaliacaoEntregador());
         je.setCpfFuncionario(e.getCpfFuncionario());
@@ -54,6 +57,9 @@ public class EntregaRepositoryAdapter implements EntregaRepository {
         Entrega e = new Entrega(je.getCpfFuncionario(), je.getIdPedido());
         e.setIdEntrega(je.getIdEntrega());
         e.setStatusEntrega(StatusEntrega.valueOf(je.getStatusEntrega()));
+        // Restaura avaliações do banco (eram perdidas no mapper anterior)
+        e.setAvaliacaoCliente(je.getAvaliacaoCliente());
+        e.setAvaliacaoEntregador(je.getAvaliacaoEntregador());
         return e;
     }
 }
