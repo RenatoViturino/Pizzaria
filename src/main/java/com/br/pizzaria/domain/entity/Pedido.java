@@ -31,7 +31,7 @@ public class Pedido {
         this.cpfCliente = cpfCliente;
         this.itens = new ArrayList<>(itens);
         this.dataHora = LocalDateTime.now();
-        this.status = StatusPedido.CRIADO;   // estado inicial conforme diagrama
+        this.status = StatusPedido.CRIADO;
         this.valorTotal = calcularTotal();
     }
 
@@ -42,7 +42,8 @@ public class Pedido {
     }
 
     /**
-     * Atualiza o status do pedido validando a transição conforme o diagrama de estado.
+     * Atualiza o status validando a transição conforme o diagrama de estado.
+     * Use apenas em operações de negócio.
      */
     public void atualizarStatus(StatusPedido novoStatus) {
         if (!this.status.podeTransicionarPara(novoStatus)) {
@@ -53,11 +54,20 @@ public class Pedido {
         this.status = novoStatus;
     }
 
-    public Long getIdPedido() { return idPedido; }
-    public void setIdPedido(Long idPedido) { this.idPedido = idPedido; }
-    public LocalDateTime getDataHora() { return dataHora; }
-    public StatusPedido getStatus() { return status; }
-    public BigDecimal getValorTotal() { return valorTotal; }
-    public String getCpfCliente() { return cpfCliente; }
-    public List<ItemPedido> getItens() { return Collections.unmodifiableList(itens); }
+    /**
+     * Reconstitui o status a partir do banco sem validar transição.
+     * Use APENAS em adapters de persistência (reconstituição de objeto).
+     */
+    public void forcarStatus(StatusPedido status) {
+        this.status = status;
+    }
+
+    public Long getIdPedido()                  { return idPedido; }
+    public void setIdPedido(Long idPedido)      { this.idPedido = idPedido; }
+    public LocalDateTime getDataHora()          { return dataHora; }
+    public void setDataHora(LocalDateTime v)    { this.dataHora = v; }
+    public StatusPedido getStatus()             { return status; }
+    public BigDecimal getValorTotal()           { return valorTotal; }
+    public String getCpfCliente()               { return cpfCliente; }
+    public List<ItemPedido> getItens()          { return Collections.unmodifiableList(itens); }
 }

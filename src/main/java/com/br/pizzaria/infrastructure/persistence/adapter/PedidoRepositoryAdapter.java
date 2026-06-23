@@ -38,7 +38,7 @@ public class PedidoRepositoryAdapter implements PedidoRepository {
 
     @Override
     public List<Pedido> listarPorStatus(StatusPedido status) {
-        return jpaRepository.findByStatus(status.name()).stream().map(this::toDomain).toList();
+        return jpaRepository.findByStatus(status).stream().map(this::toDomain).toList();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class PedidoRepositoryAdapter implements PedidoRepository {
         e.setIdPedido(p.getIdPedido());
         e.setCpfCliente(p.getCpfCliente());
         e.setDataHora(p.getDataHora());
-        e.setStatus(p.getStatus().name());
+        e.setStatus(p.getStatus());
         e.setValorTotal(p.getValorTotal());
         List<ItemPedidoJpaEntity> itens = p.getItens().stream().map(i -> {
             ItemPedidoJpaEntity ie = new ItemPedidoJpaEntity();
@@ -72,6 +72,8 @@ public class PedidoRepositoryAdapter implements PedidoRepository {
         ).toList();
         Pedido p = new Pedido(e.getCpfCliente(), itens);
         p.setIdPedido(e.getIdPedido());
+        p.setDataHora(e.getDataHora());
+        p.forcarStatus(e.getStatus());
         return p;
     }
 }

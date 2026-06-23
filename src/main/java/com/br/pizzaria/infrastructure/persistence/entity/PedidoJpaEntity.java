@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * Entidade JPA: Pedido
- * PK: idPedido (Long) — conforme diagrama de classes
- * Status persistido como String (EnumType.STRING) para legibilidade no banco.
+ * cpfCliente como coluna simples (sem @ManyToOne) para alinhar com o adapter.
+ * Status persistido como EnumType.STRING para legibilidade no banco.
  */
 @Entity
 @Table(name = "pedidos")
@@ -20,6 +20,9 @@ public class PedidoJpaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pedido")
     private Long idPedido;
+
+    @Column(name = "cpf_cliente", nullable = false, length = 11)
+    private String cpfCliente;
 
     @Column(name = "data_hora", nullable = false)
     private LocalDateTime dataHora;
@@ -31,28 +34,19 @@ public class PedidoJpaEntity {
     @Column(name = "valor_total", nullable = false, precision = 10, scale = 2)
     private BigDecimal valorTotal;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cpf_cliente", nullable = false)
-    private ClienteJpaEntity cliente;
-
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemPedidoJpaEntity> itens = new ArrayList<>();
 
-    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
-    private EntregaJpaEntity entrega;
-
-    public Long getIdPedido() { return idPedido; }
-    public void setIdPedido(Long idPedido) { this.idPedido = idPedido; }
-    public LocalDateTime getDataHora() { return dataHora; }
-    public void setDataHora(LocalDateTime dataHora) { this.dataHora = dataHora; }
-    public StatusPedido getStatus() { return status; }
-    public void setStatus(StatusPedido status) { this.status = status; }
-    public BigDecimal getValorTotal() { return valorTotal; }
-    public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }
-    public ClienteJpaEntity getCliente() { return cliente; }
-    public void setCliente(ClienteJpaEntity cliente) { this.cliente = cliente; }
-    public List<ItemPedidoJpaEntity> getItens() { return itens; }
-    public void setItens(List<ItemPedidoJpaEntity> itens) { this.itens = itens; }
-    public EntregaJpaEntity getEntrega() { return entrega; }
-    public void setEntrega(EntregaJpaEntity entrega) { this.entrega = entrega; }
+    public Long getIdPedido()                      { return idPedido; }
+    public void setIdPedido(Long v)                { this.idPedido = v; }
+    public String getCpfCliente()                  { return cpfCliente; }
+    public void setCpfCliente(String v)            { this.cpfCliente = v; }
+    public LocalDateTime getDataHora()             { return dataHora; }
+    public void setDataHora(LocalDateTime v)       { this.dataHora = v; }
+    public StatusPedido getStatus()                { return status; }
+    public void setStatus(StatusPedido v)          { this.status = v; }
+    public BigDecimal getValorTotal()              { return valorTotal; }
+    public void setValorTotal(BigDecimal v)        { this.valorTotal = v; }
+    public List<ItemPedidoJpaEntity> getItens()    { return itens; }
+    public void setItens(List<ItemPedidoJpaEntity> v) { this.itens = v; }
 }
