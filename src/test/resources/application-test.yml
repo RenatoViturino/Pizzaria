@@ -4,17 +4,34 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     password:
+
   jpa:
     hibernate:
       ddl-auto: create-drop
     database-platform: org.hibernate.dialect.H2Dialect
     show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
 
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
       auto-offset-reset: earliest
+  # Desabilita auto-configure do Kafka nos testes de integração
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration
 
+  # Desabilita envio de e-mail nos testes
+  mail:
+    host: localhost
+    port: 25
+
+management:
+  health:
+    mail:
+      enabled: false
 logging:
   level:
     com.br.pizzaria: DEBUG

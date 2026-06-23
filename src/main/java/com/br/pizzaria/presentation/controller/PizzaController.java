@@ -1,6 +1,8 @@
 package com.br.pizzaria.presentation.controller;
 
+import com.br.pizzaria.application.dto.response.ProdutoResponse;
 import com.br.pizzaria.application.usecase.pizza.CriarPizzaUseCase;
+import com.br.pizzaria.domain.entity.Produto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +21,8 @@ public class PizzaController {
     }
 
     @PostMapping
-    public ResponseEntity<PizzaResponse> criar(@RequestBody CriarPizzaRequest request) {
-        PizzaResponse response = criarPizzaUseCase.executar(request);
+    public ResponseEntity<ProdutoResponse> criar(@RequestBody Produto request) {
+        ProdutoResponse response = criarPizzaUseCase.executar(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
