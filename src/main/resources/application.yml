@@ -14,8 +14,8 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+        # dialect omitido: Hibernate 7 detecta PostgreSQL automaticamente (elimina WARN HHH90000025)
 
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
@@ -28,7 +28,6 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       auto-offset-reset: earliest
       properties:
-        # Necessário para JsonDeserializer aceitar tipos do projeto sem lançar IllegalStateException
         spring.json.trusted.packages: "com.br.pizzaria.domain.event,com.br.pizzaria.domain.valueobject"
         spring.json.use.type.headers: false
 
