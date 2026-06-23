@@ -46,7 +46,7 @@ public class EntregaRepositoryAdapter implements EntregaRepository {
         je.setCpfFuncionario(e.getCpfFuncionario());
         je.setIdPedido(e.getIdPedido());
         je.setStatusEntrega(e.getStatusEntrega() != null
-                ? e.getStatusEntrega() : StatusEntrega.PENDENTE);
+                ? e.getStatusEntrega() : StatusEntrega.AGUARDANDO);
         je.setAvaliacaoCliente(e.getAvaliacaoCliente());
         je.setAvaliacaoEntregador(e.getAvaliacaoEntregador());
         return je;

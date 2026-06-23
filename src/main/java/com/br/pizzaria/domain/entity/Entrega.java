@@ -24,7 +24,7 @@ public class Entrega {
     public Entrega(String cpfFuncionario, Long idPedido) {
         this.cpfFuncionario  = cpfFuncionario;
         this.idPedido        = idPedido;
-        this.statusEntrega   = StatusEntrega.PENDENTE;
+        this.statusEntrega   = StatusEntrega.AGUARDANDO;
     }
 
     public void registrarAvaliacaoCliente(Integer nota) {
