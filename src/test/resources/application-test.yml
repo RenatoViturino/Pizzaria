@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:pizzaria_test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:pizzariatest;DB_CLOSE_DELAY=-1;MODE=PostgreSQL;NON_KEYWORDS=VALUE
     driver-class-name: org.h2.Driver
     username: sa
     password:
@@ -8,16 +8,18 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+    # Fix: usar H2Dialect puro, sem dialect do PostgreSQL no profile de teste
     database-platform: org.hibernate.dialect.H2Dialect
     show-sql: false
     properties:
       hibernate:
         format_sql: false
+        # Fix: desabilita comandos DDL exclusivos do PostgreSQL (ex: SET client_min_messages)
+        dialect:
+          postgres:
+            pgcrypto:
+              regconfig: false
 
-  kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-      auto-offset-reset: earliest
   # Desabilita auto-configure do Kafka nos testes de integração
   autoconfigure:
     exclude:
@@ -32,6 +34,3 @@ management:
   health:
     mail:
       enabled: false
-logging:
-  level:
-    com.br.pizzaria: DEBUG
