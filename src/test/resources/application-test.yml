@@ -8,17 +8,14 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-    database-platform: org.hibernate.dialect.H2Dialect
     show-sql: false
     properties:
       hibernate:
         format_sql: false
-        dialect:
-          postgres:
-            pgcrypto:
-              regconfig: false
+        # database-platform e hibernate.dialect omitidos: Hibernate 7 detecta H2 automaticamente
+        # (remove WARN HHH90000025: H2Dialect does not need to be specified explicitly)
 
-  # Desabilita auto-configure do Kafka nos testes de integracao
+  # Desabilita auto-configure do Kafka nos testes de integração
   autoconfigure:
     exclude:
       - org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration
@@ -34,10 +31,10 @@ management:
       enabled: false
 
 # -------------------------------------------------------
-# JWT — valores dummy para testes (nao usados em producao)
+# JWT — valores dummy para testes (não usados em produção)
 # -------------------------------------------------------
 jwt:
-  # Chave HMAC-SHA256: minimo 32 bytes (256 bits) em Base64
+  # Chave HMAC-SHA256: mínimo 32 bytes (256 bits) em Base64
   secret: dGVzdGUtc2VjcmV0LWtleS1waXp6YXJpYS1qdW5pdC0yMDI2
-  # Expiracao: 1 hora em milissegundos
+  # Expiração: 1 hora em milissegundos
   expiration: 3600000

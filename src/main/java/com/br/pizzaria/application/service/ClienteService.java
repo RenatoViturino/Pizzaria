@@ -7,7 +7,7 @@ import com.br.pizzaria.application.dto.response.ClienteResponse;
 import com.br.pizzaria.application.dto.response.EnderecoResponse;
 import com.br.pizzaria.application.usecase.AtualizarClienteUseCase;
 import com.br.pizzaria.application.usecase.BuscarClienteUseCase;
-import com.br.pizzaria.application.usecase.CriarClienteUseCase;
+import com.br.pizzaria.application.usecase.cliente.CriarClienteUseCase; // FIX: pacote correto
 import com.br.pizzaria.domain.entity.Cliente;
 import com.br.pizzaria.domain.exception.ClienteNaoEncontradoException;
 import com.br.pizzaria.domain.exception.DomainException;
@@ -18,6 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * Service de cliente.
+ * Implementa os use cases de criar, buscar e atualizar clientes.
+ * A injeção de dependência via construtor segue o princípio de
+ * Inversão de Dependência (DIP): depende de abstrações (interfaces),
+ * não de implementações concretas.
+ */
 @Service
 public class ClienteService implements CriarClienteUseCase, BuscarClienteUseCase, AtualizarClienteUseCase {
 
