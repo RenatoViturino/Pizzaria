@@ -4,9 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.kafka.annotation.EnableKafka;
 
 /**
  * Entry point da aplicação Pizzaria.
@@ -17,15 +14,17 @@ import org.springframework.kafka.annotation.EnableKafka;
  *   domain        → entidades, value objects, eventos, portas (interfaces)
  *   infrastructure→ adapters JPA, Kafka producers/consumers, mail, SMS
  *
- * @SpringBootApplication já habilita:
+ * @SpringBootApplication habilita:
  *   - @Configuration
- *   - @EnableAutoConfiguration (DataSource, JPA, Kafka, Mail via application.yml)
+ *   - @EnableAutoConfiguration  (DataSource, JPA, Kafka, Mail via application.yml)
  *   - @ComponentScan em com.br.pizzaria e todos os sub-pacotes
+ *
+ * Obs: @EnableJpaRepositories, @EntityScan e @EnableKafka são
+ * auto-configurados pelo Spring Boot quando as dependências estão
+ * no classpath — anotacões explícitas são desnecessárias e causam
+ * erros de compilacão no Spring Boot 4.x.
  */
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "com.br.pizzaria.infrastructure.persistence.repository")
-@EntityScan(basePackages = "com.br.pizzaria.infrastructure.persistence.entity")
-@EnableKafka
 public class PizzariaApplication {
 
     private static final Logger log = LoggerFactory.getLogger(PizzariaApplication.class);
@@ -35,6 +34,7 @@ public class PizzariaApplication {
         log.info("=======================================================");
         log.info("  Pizzaria API iniciada — http://localhost:8080");
         log.info("  Actuator  — http://localhost:8080/actuator/health");
+        log.info("  Swagger   — http://localhost:8080/swagger-ui.html");
         log.info("=======================================================");
     }
 }
